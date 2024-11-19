@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Entry Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/login-page-style.css}" />
+</head>
+<body>
+<h1>Analytics Results</h1>
+<ul>
+    <li th:each="analytics : ${analyticsList}">
+        <span>Minimum [[${analytics.minTemp}]]</span>,
+        <span>Maximum [[${analytics.maxTemp}]]</span>,
+        <span>Avg [[${analytics.avgTemp}]]</span>
+    </li>
+</ul>
+</body>
+</html>

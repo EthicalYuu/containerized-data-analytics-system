@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+  enter-data-service:
+    image: enter-data-service
+    ports:
+      - "8080:8080"
+    networks:
+      - mysql-network
+      - services-network
+
+    depends_on:
+      - mysqldb
+      - authentication-service
+
+  authentication-service:
+    image: authentication-service
+    ports:
+      - "8081:8081"
+    networks:
+      - services-network
+
+  analytics-service:
+    image: analytics-service
+    ports:
+      - "8083:8083"
+    networks:
+      - mongo-network
+      - mysql-network
+    depends_on:
+      - mysqldb
+      - mongodb
+
+  show-results-service:
+    image: show-results-service
+    ports:
+      - "8084:8084"
+    networks:
+      - mongo-network
+      - services-network
+    depends_on:
+      - enter-data-service
+      - mongodb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - mysql-network
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: temperature
+
+  mongodb:
+    image: mongo
+    networks:
+      - mongo-network
+    ports:
+      - "27017:27017"
+networks:
+  services-network:
+  mysql-network:
+  mongo-network:

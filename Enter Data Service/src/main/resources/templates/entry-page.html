@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Entry Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/entry-page-style.css}" />
+</head>
+<body>
+
+<div id="form-container">
+    <form action="/submit-entry" method="post">
+        <label for="temperature">Data</label>
+        <input type="text" id="temperature" name="temperature" placeholder="Temperature" required>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form action="/get-results" method="get">
+        <input type="submit" value="View Analytics">
+    </form>
+</div>
+
+</body>
+</html>
